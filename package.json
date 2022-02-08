@@ -1,5 +1,5 @@
 {
-  "name": "platformio-node-helpers",
+  "name": "platformio-node-helper-codeserver",
   "version": "9.4.0",
   "description": "Collection of Node.JS helpers for PlatformIO",
   "main": "dist/index.js",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/platformio/platformio-node-helpers.git"
+    "url": "git+https://github.com/platformio/platformio-node-helpers.git"
   },
   "keywords": [
     "PlatformIO",
@@ -59,6 +59,7 @@
     "tar": "~6.1.11",
     "tcp-port-used": "~1.0.2",
     "tmp": "~0.2.1",
+    "vscode": "^1.1.37",
     "ws": "~8.2.3"
   },
   "devDependencies": {
@@ -75,5 +76,27 @@
     "prettier": "~2.4.1",
     "webpack": "~5.61.0",
     "webpack-cli": "~4.9.1"
-  }
+  },
+  "configuration": {
+    "type": "object",
+    "title": "PlatformIO Remote Configuration",
+    "properties": {
+      "nodehelper-ide.https": {
+        "type": "boolean",
+        "default": true,
+        "description": "Enables HTTPS für IFrame "
+      },
+      "nodehelper-ide.static_secret": {
+        "type": "string",
+        "default": "",
+        "description": "If its not empty it will be use as static Secrect"
+      },
+      "nodehelper-ide.iframe": {
+        "type": "string",
+        "default": "",
+        "description": "This Url will be use for the Iframe in vscode"
+      }
+    }
+  },
+  "author": "Christian Schindler"
 }

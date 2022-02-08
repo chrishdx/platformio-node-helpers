@@ -17,21 +17,32 @@ import jsonrpc from 'jsonrpc-lite';
 import path from 'path';
 import qs from 'querystringify';
 import tcpPortUsed from 'tcp-port-used';
+import * as vscode from 'vscode';
+
+var configuration_file = vscode.workspace.getConfiguration('nodehelper-ide', null);
 
 const SERVER_LAUNCH_TIMEOUT = 30; // 30 seconds
 const SERVER_AUTOSHUTDOWN_TIMEOUT = 3600; // 1 hour
 const HTTP_PORT_BEGIN = 8010;
 const HTTP_PORT_END = 8050;
+var secret = crypto.randomBytes(512);
+if (configuration_file.static_secret !== ''){
+  secret = configuration_file.static_secret;
+}
 const SESSION_ID = crypto
   .createHash('sha1')
-  .update(crypto.randomBytes(512))
+  .update(secret)
   .digest('hex');
-let _HTTP_HOST = '127.0.0.1';
+  let _HTTP_HOST ='0.0.0.0';
+  if (String(configuration_file.iframe) === ''){
+    _HTTP_HOST ='127.0.0.1';
+  } 
+var schme_var = configuration_file.https && 'https' || 'http';
 let _HTTP_PORT = 0;
 let _IDECMDS_LISTENER_STATUS = 0;
 
 export function constructServerUrl({
-  scheme = 'http',
+  scheme = schme_var,
   host = undefined,
   port = undefined,
   path = undefined,
