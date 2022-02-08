@@ -33,9 +33,9 @@ const SESSION_ID = crypto
   .createHash('sha1')
   .update(secret)
   .digest('hex');
-  let _HTTP_HOST ='0.0.0.0';
-  if (String(configuration_file.iframe) === ''){
-    _HTTP_HOST ='127.0.0.1';
+  let _HTTP_HOST ='127.0.0.1';
+  if (String(configuration_file.iframe) !== ''){
+    _HTTP_HOST =configuration_file.iframe;
   } 
 var schme_var = configuration_file.https && 'https' || 'http';
 let _HTTP_PORT = 0;
